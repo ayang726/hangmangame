@@ -1,0 +1,15 @@
+#gameContainer .answerLetter {
+    text-decoration: underline;
+}
+
+.blink{
+    animation:blinkingText 1.5s infinite;
+}
+@keyframes blinkingText{
+    0%{     color: #000;    }
+    80%{    color: transparent; }
+    100%{   color: #000;    }
+}
+#answerLetters {
+    letter-spacing: 0.2em;
+}
