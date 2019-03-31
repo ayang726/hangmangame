@@ -17,64 +17,43 @@
 // style.css
 
 // initial setup
-document.onkeypress = function (key) {
-    if (key.keyCode === 13) {
-        var message = document.getElementById("message");
-        message.textContent = "Good Luck!";
-        message.classList.remove("blink");
-        gameLoop();
-    }
-};
 
-var attempts = 20;
-var answer = "STARDEW VALLEY";
 var attemptsElement = document.getElementById("attempts");
 var answerLettersElement = document.getElementById("answerLetters");
 var guessedLettersElement = document.getElementById("guessedLetters");
+var message = document.getElementById("message");
+var winCount = document.getElementById("win");
+var loseCount = document.getElementById("lose");
+var audio = document.getElementById("audio");
 
+// initialize new game
+function initializeGameWindow() {
+    message.textContent = "Press Enter/Return Key to Start";
+    message.classList.add("blink");
+    document.onkeypress = function (key) {
+        if (key.keyCode === 13) {
+            message.textContent = "Good Luck!";
+            message.classList.remove("blink");
+            gameLoop();
+        }
+    };
+}
+initializeGameWindow();
+
+// Initializing variables
+
+var answer
+var attempts
 var answerArray = [];
 var guessArray = [];
 var guessedLetters = [];
+var numWins = 0;
+var numLoses = 0;
 
-function setup() {
-    // Setup:
-    // Reset number of attempts
-    // Random an answer
-    // clear guessed letter and answer
-    // Create answer array to match answer
-    // create number of underlines equal to number of letters
-    attempts = 20;
-    answer = "STARDEW VALLEY"
-    answerArray = [];
-    guessArray = [];
-    guessedLetters = [];
-
-    for (var i = 0; i < answer.length; i++) {
-        answerArray[i] = answer[i];
-        if (answerArray[i] === " ") {
-            guessArray[i] = " ";
-        } else {
-            guessArray[i] = "_";
-        }
-    }
-}
-
-function updateUI() {
-    // Display guessed answer progress
-    attemptsElement.textContent = +attempts;
-    answerLettersElement.textContent = "";
-    guessArray.forEach(element => {
-        answerLettersElement.append(element);
-    });
-    // display letters guessed
-    guessedLettersElement.textContent = ""
-    guessedLetters.forEach(e => {
-        guessedLettersElement.append(e);
-    });
-}
-
+// main game loop
 function gameLoop() {
 
+    // game starts
     setup();
     updateUI();
     // Receive a user input
@@ -85,7 +64,6 @@ function gameLoop() {
         // console.log(key);
         if (key.keyCode >= 97 && key.keyCode <= 122) {
             letter = key.key.toUpperCase();
-
 
             // compare user input with answer array,
             // if matching letter, update guessed array
@@ -104,11 +82,54 @@ function gameLoop() {
                     lose();
                 }
             }
-
-
-
         }
     }
+}
+
+
+function setup() {
+    // Setup:
+    // Reset number of attempts
+    // Random an answer
+    // clear guessed letter and answer
+    // Create answer array to match answer
+    // create number of underlines equal to number of letters
+    attempts = 8;
+    answerChosen = answerList[Math.floor(Math.random() * answerList.length)];
+    answer = answerChosen.name;
+    var song = answerChosen.audioSrc;
+    audio.src = "./assets/mp3/" + song;
+    answerArray = [];
+    guessArray = [];
+    guessedLetters = [];
+    console.log("Answer: " + answer);
+
+    answer = answer.toUpperCase();
+    answerArray = answer.split("");
+    answerArray.forEach(e => {
+        if (e === " " || e === "'") {
+            guessArray.push(e);
+        } else {
+            guessArray.push("_");
+        }
+    });
+}
+
+function updateUI() {
+    // Display guessed answer progress
+    attemptsElement.textContent = +attempts;
+    answerLettersElement.textContent = "";
+    guessArray.forEach(element => {
+        answerLettersElement.append(element);
+    });
+    // display letters guessed
+    guessedLettersElement.textContent = ""
+    guessedLetters.forEach(e => {
+        guessedLettersElement.append(e);
+    });
+
+    winCount.textContent = +numWins;
+    loseCount.textContent = +numLoses;
 }
 
 function checkLetter(letter) {
@@ -143,15 +164,21 @@ function checkWinCondition() {
 
 function win() {
     console.log("You Win!");
+    message.textContent = "You Win!";
+    numWins++;
     endGame();
 }
 function lose() {
     console.log("You Lost!");
+    message.textContent = "You Lost!";
+    numLoses++;
     endGame();
 }
 
 function endGame() {
     document.onkeypress = null;
+    updateUI();
+    setTimeout(initializeGameWindow, 3000);
 }
 
 // TODOLIST
@@ -162,3 +189,18 @@ function endGame() {
 // game loop
 // more difficulties
 // user images, create image blur animation
+
+
+// List of games:
+// Stardew Valley
+// Witcher
+// Super Mario
+// Cities Skylines
+// Darkest Dungeon
+// Dirt
+// Don't Starve
+// Civilization
+// Counter Strike
+// Portal
+// Plants vs zombies    
+
