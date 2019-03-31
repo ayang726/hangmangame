@@ -25,6 +25,7 @@ var message = document.getElementById("message");
 var winCount = document.getElementById("win");
 var loseCount = document.getElementById("lose");
 var audio = document.getElementById("audio");
+var image = document.getElementById("image");
 
 // initialize new game
 function initializeGameWindow() {
@@ -97,8 +98,10 @@ function setup() {
     attempts = 8;
     answerChosen = answerList[Math.floor(Math.random() * answerList.length)];
     answer = answerChosen.name;
-    var song = answerChosen.audioSrc;
-    audio.src = "./assets/mp3/" + song;
+    var audioFile = answerChosen.audioSrc;
+    var imageFile = answerChosen.pictureSrc;
+    audio.src = "./assets/mp3/" + audioFile;
+    image.src = "./assets/pic/" + imageFile;
     answerArray = [];
     guessArray = [];
     guessedLetters = [];
@@ -127,6 +130,8 @@ function updateUI() {
     guessedLetters.forEach(e => {
         guessedLettersElement.append(e);
     });
+    var blurPixel = attempts;
+    image.style.filter = "blur(" + blurPixel + "px)";
 
     winCount.textContent = +numWins;
     loseCount.textContent = +numLoses;

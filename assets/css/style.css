@@ -13,3 +13,9 @@
 #answerLetters {
     letter-spacing: 0.2em;
 }
+
+#image {
+    object-fit: cover;
+    transition: 0.5s;
+    /* filter: blur(10px); */
+}
