@@ -36,7 +36,7 @@ function initializeGameWindow() {
         if (key.keyCode === 13) {
             message.textContent = "Good Luck!";
             message.classList.remove("blink");
-            // console.log("game about to start");
+            console.log("game about to start");
             gameLoop();
         }
     };
@@ -65,7 +65,7 @@ function gameLoop() {
     // add user input to guessed letters
     console.log("called");
     document.onkeypress = function (key) {
-        // console.log(key);
+        console.log(key);
         if (key.keyCode >= 97 && key.keyCode <= 122) {
             letter = key.key.toUpperCase();
 
@@ -87,7 +87,7 @@ function gameLoop() {
                 }
             }
         }
-    }
+    };
 }
 
 
@@ -231,5 +231,13 @@ function changeDifficulty(difficulty) {
     });
     difficultyButtons[difficulty].classList.add("active");
     document.onkeypress = null;
+    // document.body.focus();  
     initializeGameWindow();
+    // gameLoop();
 }
+
+
+// TODOLIST
+// eliminate correct answers from answer list
+// fix when selecting difficulty, has to click document body to work.
+// Add more content
