@@ -26,6 +26,7 @@ var winCount = document.getElementById("win");
 var loseCount = document.getElementById("lose");
 var audio = document.getElementById("audio");
 var image = document.getElementById("image");
+var difficultyButtons = document.getElementById("difficulties").querySelectorAll("button");
 
 // initialize new game
 function initializeGameWindow() {
@@ -50,10 +51,10 @@ var guessArray = [];
 var guessedLetters = [];
 var numWins = 0;
 var numLoses = 0;
+var difficulties = 1;
 
 // main game loop
 function gameLoop() {
-
     // game starts
     setup();
     updateUI();
@@ -95,7 +96,12 @@ function setup() {
     // clear guessed letter and answer
     // Create answer array to match answer
     // create number of underlines equal to number of letters
-    attempts = 8;
+    console.log("Starting New Game");
+    if (difficulties === 2) {
+        attempts = 4;
+    } else {
+        attempts = 8;
+    }
     answerChosen = answerList[Math.floor(Math.random() * answerList.length)];
     answer = answerChosen.name;
     var audioFile = answerChosen.audioSrc;
@@ -130,7 +136,17 @@ function updateUI() {
     guessedLetters.forEach(e => {
         guessedLettersElement.append(e);
     });
-    var blurPixel = attempts;
+    var blurPixel;
+    switch (difficulties) {
+        case 0:
+            blurPixel = attempts;
+            break;
+        case 1:
+            blurPixel = attempts * 3;
+            break;
+        case 2:
+            blurPixel = attempts * 10;
+    }
     image.style.filter = "blur(" + blurPixel + "px)";
 
     winCount.textContent = +numWins;
@@ -186,26 +202,32 @@ function endGame() {
     setTimeout(initializeGameWindow, 3000);
 }
 
-// TODOLIST
-// create list of answers
-// End game animation
-// Add to win lose counter
-// restart game
-// game loop
-// more difficulties
-// user images, create image blur animation
 
 
-// List of games:
-// Stardew Valley
-// Witcher
-// Super Mario
-// Cities Skylines
-// Darkest Dungeon
-// Dirt
-// Don't Starve
-// Civilization
-// Counter Strike
-// Portal
-// Plants vs zombies    
+// Helper functions
+function testResources(index = 0, testTime = 10000) {
+    var test = answerList[index];
+    console.log("Testing " + test.name);
+    var audio = new Audio();
+    audio.src = "./assets/mp3/" + test.audioSrc;
+    image.src = "./assets/pic/" + test.pictureSrc;
+    audio.play();
 
+    setTimeout(function () {
+        audio.pause();
+        if (++index < answerList.length) {
+            testResources(index, testTime);
+        }
+    }, testTime);
+}
+
+// Other functions
+function changeDifficulty(difficulty) {
+    this.difficulties = difficulty;
+    difficultyButtons.forEach(button => {
+        button.classList.remove("active");
+    });
+    difficultyButtons[difficulty].classList.add("active");
+    document.onkeypress = null;
+    initializeGameWindow();
+}

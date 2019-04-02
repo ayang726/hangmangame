@@ -17,5 +17,4 @@
 #image {
     object-fit: cover;
     transition: 0.5s;
-    /* filter: blur(10px); */
 }

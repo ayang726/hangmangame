@@ -24,6 +24,16 @@
     <div class="container" id="gameContainer">
         <div class="row">
             <div class="col-lg-12 mx-auto">
+                <div class="btn-group btn-group-toggle" id="difficulties">
+                    <button onclick="changeDifficulty(0)" class="btn btn-outline-primary" id="Easy">Easy</button>
+                    <button onclick="changeDifficulty(1)" class="btn btn-outline-primary active"
+                        id="Medium">Medium</button>
+                    <button onclick="changeDifficulty(2)" class="btn btn-outline-primary" id="Hard">Hard</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
                 <audio id="audio" controls></audio>
             </div>
         </div>
