@@ -18,3 +18,9 @@
     object-fit: cover;
     transition: 0.5s;
 }
+
+.jumbotron {
+    margin-top: 0;
+    padding-top:0;
+    padding-bottom: 10px;
+}

@@ -36,6 +36,7 @@ function initializeGameWindow() {
         if (key.keyCode === 13) {
             message.textContent = "Good Luck!";
             message.classList.remove("blink");
+            // console.log("game about to start");
             gameLoop();
         }
     };
@@ -59,9 +60,10 @@ function gameLoop() {
     setup();
     updateUI();
     // Receive a user input
-    var input = "";
+    // var input = "";
 
     // add user input to guessed letters
+    console.log("called");
     document.onkeypress = function (key) {
         // console.log(key);
         if (key.keyCode >= 97 && key.keyCode <= 122) {
@@ -199,7 +201,7 @@ function lose() {
 function endGame() {
     document.onkeypress = null;
     updateUI();
-    setTimeout(initializeGameWindow, 3000);
+    setTimeout(function () { initializeGameWindow() }, 3000);
 }
 
 
