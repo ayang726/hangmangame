@@ -22,26 +22,13 @@ var attemptsElement = document.getElementById("attempts");
 var answerLettersElement = document.getElementById("answerLetters");
 var guessedLettersElement = document.getElementById("guessedLetters");
 var message = document.getElementById("message");
+var message2 = document.getElementById("message2");
 var winCount = document.getElementById("win");
 var loseCount = document.getElementById("lose");
 var audio = document.getElementById("audio");
 var image = document.getElementById("image");
 var difficultyButtons = document.getElementById("difficulties").querySelectorAll("button");
 
-// initialize new game
-function initializeGameWindow() {
-    message.textContent = "Press Enter/Return Key to Start";
-    message.classList.add("blink");
-    document.onkeypress = function (key) {
-        if (key.keyCode === 13) {
-            message.textContent = "Good Luck!";
-            message.classList.remove("blink");
-            console.log("game about to start");
-            gameLoop();
-        }
-    };
-}
-initializeGameWindow();
 
 // Initializing variables
 
@@ -53,41 +40,66 @@ var guessedLetters = [];
 var numWins = 0;
 var numLoses = 0;
 var difficulties = 1;
+var gameStates = {
+    idle: 0,
+    running: 1,
+    ended: 2
+}
+var gameState;
 
-// main game loop
-function gameLoop() {
-    // game starts
+idle();
+
+document.onkeypress = function (key) {
+    switch (gameState) {
+        case gameStates.idle:
+            if (key.keyCode === 13) {
+                startGame();
+            }
+            break;
+        case gameStates.running:
+            if (key.keyCode >= 97 && key.keyCode <= 122) {
+                checkKey(key);
+            }
+            break;
+        case gameStates.ended:
+            break;
+    }
+};
+
+function idle() {
+    gameState = gameStates.idle;
+    message.textContent = "Press Enter/Return Key to Start";
+    message.classList.add("blink");
+}
+
+function startGame() {
+    gameState = gameStates.running;
+    message.classList.remove("blink");
+    message.textContent = "Good Luck!";
     setup();
     updateUI();
-    // Receive a user input
-    // var input = "";
+}
 
-    // add user input to guessed letters
-    console.log("called");
-    document.onkeypress = function (key) {
-        console.log(key);
-        if (key.keyCode >= 97 && key.keyCode <= 122) {
-            letter = key.key.toUpperCase();
+function checkKey(key) {
+    letter = key.key.toUpperCase();
 
-            // compare user input with answer array,
-            // if matching letter, update guessed array
+    // compare user input with answer array,
+    // if matching letter, update guessed array
 
-            // -- attempt counter
-            if (!letterExist(letter)) {
-                // console.log("executing");
-                guessedLetters.push(letter);
-                if (!checkLetter(letter)) { attempts--; }
-                updateUI();
+    // -- attempt counter
+    if (!letterExist(letter)) {
+        // console.log("executing");
+        guessedLetters.push(letter);
+        if (!checkLetter(letter)) { attempts--; }
+        updateUI();
 
-                // check win/lose condition
-                if (checkWinCondition()) {
-                    win();
-                } else if (attempts <= 0) {
-                    lose();
-                }
-            }
+        // check win/lose condition
+        if (checkWinCondition()) {
+            win();
+        } else if (attempts <= 0) {
+            lose();
         }
-    };
+    }
 }
 
 
@@ -187,19 +199,19 @@ function checkWinCondition() {
 
 function win() {
     console.log("You Win!");
-    message.textContent = "You Win!";
+    message2.textContent = "You Win!";
     numWins++;
     endGame();
 }
 function lose() {
     console.log("You Lost!");
-    message.textContent = "You Lost!";
+    message2.textContent = "You Lost!";
     numLoses++;
     endGame();
 }
 
 function endGame() {
-    document.onkeypress = null;
+    gameState = gameStates.ended;
     updateUI();
     setTimeout(function () { initializeGameWindow() }, 3000);
 }
@@ -230,10 +242,7 @@ function changeDifficulty(difficulty) {
         button.classList.remove("active");
     });
     difficultyButtons[difficulty].classList.add("active");
-    document.onkeypress = null;
-    // document.body.focus();  
-    initializeGameWindow();
-    // gameLoop();
+    idle();
 }
 
 
