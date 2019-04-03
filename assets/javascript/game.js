@@ -1,22 +1,5 @@
-// Model:
-// Create ansewr object which include string of answer and it's associated character array, and stores the length of the array.
 
-// Game object keeps track of what character has previously been typed in.
-// Houses an answer object taken from answer object library
-// Keeps track of how many attempts are left.
-
-// Create ansewr object library, a list of names of popular modern games
-
-
-// Controller:
-// Show how many letters or spaces are in the answer
-// Game controller keeps a loop of games
-
-// View:
-// index.html
-// style.css
-
-// initial setup
+// Getting html elements
 
 var attemptsElement = document.getElementById("attempts");
 var answerLettersElement = document.getElementById("answerLetters");
@@ -52,11 +35,15 @@ idle();
 document.onkeypress = function (key) {
     switch (gameState) {
         case gameStates.idle:
-            if (key.keyCode === 13) {
-                startGame();
+            console.log("Message - 900");
+            console.log(key);
+            runGame();
+            if (key.keyCode == 13) {
+                runGame();
             }
             break;
         case gameStates.running:
+            console.log("Message - 901");
             if (key.keyCode >= 97 && key.keyCode <= 122) {
                 checkKey(key);
             }
@@ -72,7 +59,7 @@ function idle() {
     message.classList.add("blink");
 }
 
-function startGame() {
+function runGame() {
     gameState = gameStates.running;
     message.classList.remove("blink");
     message.textContent = "Good Luck!";
@@ -213,7 +200,7 @@ function lose() {
 function endGame() {
     gameState = gameStates.ended;
     updateUI();
-    setTimeout(function () { initializeGameWindow() }, 3000);
+    setTimeout(function () { idle() }, 3000);
 }
 
 
