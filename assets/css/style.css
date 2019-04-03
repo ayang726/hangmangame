@@ -17,10 +17,16 @@
 #image {
     object-fit: cover;
     transition: 0.5s;
+    margin-top: 50px;
 }
 
 .jumbotron {
     margin-top: 0;
+    margin-bottom:10px;
     padding-top:0;
     padding-bottom: 10px;
+
+}
+.bottom-row{
+    margin-top: 30px;
 }

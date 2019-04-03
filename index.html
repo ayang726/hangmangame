@@ -12,29 +12,24 @@
 </head>
 
 <body>
-    <div class="jumbotron">
+    <div class="jumbotron text-center">
         <div class="title display-4">Word Guessing Game</div>
         <p class="lead">Instructions: Guess the name of a popular video game.</p>
         <hr class="my-4">
         <p id="message" class="blink">Press Enter/Return Key to Start</p>
         <p id="message2"></p>
 
+        <div class="btn-group btn-group-toggle mx-auto" id="difficulties">
+            <button onclick="changeDifficulty(0)" class="btn btn-outline-primary" id="Easy">Easy</button>
+            <button onclick="changeDifficulty(1)" class="btn btn-outline-primary active" id="Medium">Medium</button>
+            <button onclick="changeDifficulty(2)" class="btn btn-outline-primary" id="Hard">Hard</button>
+        </div>
 
     </div>
 
     <div class="container" id="gameContainer">
         <div class="row">
-            <div class="col-lg-12 mx-auto">
-                <div class="btn-group btn-group-toggle" id="difficulties">
-                    <button onclick="changeDifficulty(0)" class="btn btn-outline-primary" id="Easy">Easy</button>
-                    <button onclick="changeDifficulty(1)" class="btn btn-outline-primary active"
-                        id="Medium">Medium</button>
-                    <button onclick="changeDifficulty(2)" class="btn btn-outline-primary" id="Hard">Hard</button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 mx-auto">
+            <div class="col-lg-12">
                 <audio id="audio" autoplay controls></audio>
             </div>
         </div>
@@ -44,30 +39,30 @@
             </div>
             <div class="col-md-8">
                 <div class="row">
-                    <div class="col mx-auto">
-                        <div class="display-4">Attempts <span id="attempts">#</span>:</div>
+                    <div class="col">
+                        <div class="display-4 text-center">Attempts <span id="attempts">#</span>:</div>
                     </div>
                 </div>
                 <hr class="my-4">
                 <div class="row">
-                    <div class="col mx-auto" id="answer">
-                        <div class="display-3" id="answerLetters"></div>
+                    <div class="col" id="answer">
+                        <div class="display-3 text-center" id="answerLetters"></div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col mx-auto">
-                        <h5 class="display-5">Guessed Letters:</h5>
-                        <h5 class="display-5" id="guessedLetters"></h5>
+                    <div class="col">
+                        <h5 class="display-5 text-center">Guessed Letters:</h5>
+                        <h5 class="display-5 text-center" id="guessedLetters"></h5>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row bottom-row">
             <div class="col-md-6">
-                <h4 class="display-4 mx-auto">Win: <span id="win">0</span></h4>
+                <h4 class="display-4 text-center">Win: <span id="win">0</span></h4>
             </div>
             <div class="col-md-6">
-                <h4 class="display-4 mx-auto">Lose: <span id="lose">0</span></h4>
+                <h4 class="display-4 text-center">Lose: <span id="lose">0</span></h4>
             </div>
         </div>
     </div>

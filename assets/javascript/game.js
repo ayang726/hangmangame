@@ -29,25 +29,28 @@ var gameStates = {
     ended: 2
 }
 var gameState;
+var timeout;
 
 idle();
 
 document.onkeypress = function (key) {
     switch (gameState) {
         case gameStates.idle:
-            console.log("Message - 900");
-            console.log(key);
+            // console.log("Message - 900");
+            // console.log(key);
             if (key.keyCode == 13) {
                 runGame();
             }
             break;
         case gameStates.running:
-            console.log("Message - 901");
+            // console.log("Message - 901");
             if (key.keyCode >= 97 && key.keyCode <= 122) {
                 checkKey(key);
             }
             break;
         case gameStates.ended:
+            clearTimeout(timeout);
+            idle();
             break;
     }
 };
@@ -62,6 +65,7 @@ function runGame() {
     gameState = gameStates.running;
     message.classList.remove("blink");
     message.textContent = "Good Luck!";
+    message2.textContent = "";
     setup();
     updateUI();
 }
@@ -103,6 +107,7 @@ function setup() {
         attempts = 8;
     }
     answerChosen = answerList[Math.floor(Math.random() * answerList.length)];
+    answerList = answerList.filter(e => { return e !== answerChosen });
     answer = answerChosen.name;
     var audioFile = answerChosen.audioSrc;
     var imageFile = answerChosen.pictureSrc;
@@ -184,7 +189,7 @@ function checkWinCondition() {
 }
 
 function win() {
-    console.log("You Win!");
+    console.log("You Guess It!");
     message2.textContent = "You Win!";
     numWins++;
     endGame();
@@ -199,7 +204,12 @@ function lose() {
 function endGame() {
     gameState = gameStates.ended;
     updateUI();
-    setTimeout(function () { idle() }, 3000);
+    if (answerList.length > 0) {
+        timeout = setTimeout(function () { idle() }, 3000);
+    } else {
+        message.textContent = "The Game Has Ended";
+        message2.textContent = "Refresh to play again."
+    }
 }
 
 
