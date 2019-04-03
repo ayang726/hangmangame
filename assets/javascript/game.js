@@ -37,7 +37,6 @@ document.onkeypress = function (key) {
         case gameStates.idle:
             console.log("Message - 900");
             console.log(key);
-            runGame();
             if (key.keyCode == 13) {
                 runGame();
             }
