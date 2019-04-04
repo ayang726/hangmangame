@@ -9,8 +9,9 @@ var message2 = document.getElementById("message2");
 var winCount = document.getElementById("win");
 var loseCount = document.getElementById("lose");
 var audio = document.getElementById("audio");
-var image = document.getElementById("image");
-var difficultyButtons = document.getElementById("difficulties").querySelectorAll("button");
+// var image = document.getElementById("image");
+var imageContainer = document.getElementsByClassName("image-container")[0];
+var difficultyButtons = document.getElementById("difficulties").querySelectorAll("li");
 
 
 // Initializing variables
@@ -34,10 +35,11 @@ var timeout;
 idle();
 
 document.onkeypress = function (key) {
+    // console.log(key);
     switch (gameState) {
         case gameStates.idle:
             // console.log("Message - 900");
-            // console.log(key);
+
             if (key.keyCode == 13) {
                 runGame();
             }
@@ -106,13 +108,14 @@ function setup() {
     } else {
         attempts = 8;
     }
-    answerChosen = answerList[Math.floor(Math.random() * answerList.length)];
-    answerList = answerList.filter(e => { return e !== answerChosen });
+    var indexChosen = Math.floor(Math.random() * answerList.length);
+    answerChosen = answerList.splice(indexChosen, 1)[0];
     answer = answerChosen.name;
     var audioFile = answerChosen.audioSrc;
     var imageFile = answerChosen.pictureSrc;
     audio.src = "./assets/mp3/" + audioFile;
-    image.src = "./assets/pic/" + imageFile;
+    imageContainer.classList.add("show-image");
+    imageContainer.style.backgroundImage = "url(./assets/pic/" + imageFile + ")";
     answerArray = [];
     guessArray = [];
     guessedLetters = [];
@@ -152,7 +155,7 @@ function updateUI() {
         case 2:
             blurPixel = attempts * 10;
     }
-    image.style.filter = "blur(" + blurPixel + "px)";
+    imageContainer.style.filter = "blur(" + blurPixel + "px)";
 
     winCount.textContent = +numWins;
     loseCount.textContent = +numLoses;
@@ -190,7 +193,7 @@ function checkWinCondition() {
 
 function win() {
     console.log("You Guess It!");
-    message2.textContent = "You Win!";
+    message2.textContent = "You Guess It!";
     numWins++;
     endGame();
 }
@@ -204,6 +207,7 @@ function lose() {
 function endGame() {
     gameState = gameStates.ended;
     updateUI();
+    imageContainer.style.filter = "blur()";
     if (answerList.length > 0) {
         timeout = setTimeout(function () { idle() }, 3000);
     } else {
@@ -214,21 +218,52 @@ function endGame() {
 
 
 
-// Helper functions
-function testResources(index = 0, testTime = 10000) {
+// Test functions
+function testResources(testTime = 500, index = 0) {
     var test = answerList[index];
     console.log("Testing " + test.name);
     var audio = new Audio();
     audio.src = "./assets/mp3/" + test.audioSrc;
-    image.src = "./assets/pic/" + test.pictureSrc;
+    imageContainer.classList.add("show-image");
+    imageContainer.style.backgroundImage = "url(./assets/pic/" + test.pictureSrc + ")";
     audio.play();
 
     setTimeout(function () {
         audio.pause();
         if (++index < answerList.length) {
-            testResources(index, testTime);
+            testResources(testTime, index);
         }
     }, testTime);
+}
+function playMeSomeMusic() {
+    var i = Math.floor(Math.random() * answerList.length);
+    audio.addEventListener("ended", function () {
+        if (answerList.length > 0) {
+            i = Math.floor(Math.random(answerList.length));
+            var audioObject = answerList.splice(i, 1)[0];
+            message2.textContent = audioObject.name
+            audioSrc = audioObject.audioSrc;
+            audio.src = "./assets/mp3/" + audioSrc;
+
+            audio.play();
+        }
+        else {
+            document.onkeypress = null;
+            endGame();
+        }
+    });
+    message2.textContent = answerList[i].name
+    audioSrc = answerList[i].audioSrc;
+    audio.src = "./assets/mp3/" + audioSrc;
+    answerList.splice(i, 1);
+    audio.play();
+    message.textContent = "";
+    document.onkeypress = function (e) {
+        if (e.keyCode == 13) {
+            console.log("Message - 902");
+            audio.currentTime = audio.duration - 0.1;
+        }
+    };
 }
 
 // Other functions
@@ -238,6 +273,7 @@ function changeDifficulty(difficulty) {
         button.classList.remove("active");
     });
     difficultyButtons[difficulty].classList.add("active");
+    difficultyButtons[difficulty].blur();
     idle();
 }
 
