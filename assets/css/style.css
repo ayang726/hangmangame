@@ -4,6 +4,7 @@ body {
     background-size: cover;
     color: #ccc;
     background-position: center;
+    font-family: 'Lato', sans-serif;
 }
 header h1, header h4 {
     height: 60px;
@@ -65,6 +66,8 @@ background-color: rgba(0, 0, 0, 0);
 }
 #answerLetters {
     margin: 50px 0;
+    letter-spacing: 0.2em;
+    word-break: break-word;
 }
 
 .guessedLetters{
@@ -81,9 +84,7 @@ background-color: rgba(0, 0, 0, 0);
     80%{    color: transparent; }
     100%{   color: #fff;    }
 }
-#answerLetters {
-    letter-spacing: 0.2em;
-}
+
 
 .image-container {
     width: 100%;

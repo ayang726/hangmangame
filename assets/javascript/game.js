@@ -213,6 +213,7 @@ function endGame() {
     } else {
         message.textContent = "The Game Has Ended";
         message2.textContent = "Refresh to play again."
+        document.onkeypress = null;
     }
 }
 
@@ -227,7 +228,6 @@ function testResources(testTime = 500, index = 0) {
     imageContainer.classList.add("show-image");
     imageContainer.style.backgroundImage = "url(./assets/pic/" + test.pictureSrc + ")";
     audio.play();
-
     setTimeout(function () {
         audio.pause();
         if (++index < answerList.length) {

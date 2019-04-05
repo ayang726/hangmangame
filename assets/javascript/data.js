@@ -1,199 +1,56 @@
-var answer1 = {
-    name: "Stardew Valley",
-    audioSrc: "stardewvalley.mp3",
-    pictureSrc: "stardew_valley.png"
-};
-var answer2 = {
-    name: "Witcher",
-    audioSrc: "witcher.mp3",
-    pictureSrc: "witcher.jpg"
-};
-var answer3 = {
-    name: "Super Mario",
-    audioSrc: "01 - Super Mario Bros.mp3",
-    pictureSrc: "supermario.png"
-};
-var answer4 = {
-    name: "Cities Skylines",
-    audioSrc: "citesskylines.mp3",
-    pictureSrc: "citiesskylines.jpeg"
-};
-var answer5 = {
-    name: "Darkest Dungeon",
-    audioSrc: "darkestdungeon.mp3",
-    pictureSrc: "darkestdungeon.jpg"
-};
-var answer6 = {
-    name: "Dirt",
-    audioSrc: "dirt.mp3",
-    pictureSrc: "dirt.jpeg"
-};
-var answer7 = {
-    name: "Don't Starve",
-    audioSrc: "dontstarve.mp3",
-    pictureSrc: "dontstarve.jpeg"
-};
-var answer8 = {
-    name: "Civilization",
-    audioSrc: "civilization.mp3",
-    pictureSrc: "civilization.jpg"
-};
-var answer9 = {
-    name: "Counter Strike",
-    audioSrc: "counterstrike.mp3",
-    pictureSrc: "counterstrike.jpg"
-};
-var answer10 = {
-    name: "Portal",
-    audioSrc: "portal.mp3",
-    pictureSrc: "portal.jpg"
-};
-var answer11 = {
-    name: "Plants vs zombies",
-    audioSrc: "plantsvszombies2.mp3",
-    pictureSrc: "plantsvszombies.jpg"
+class Answer {
+    constructor(name, audioSrc = name.toLowerCase().replace(" ", "") + ".mp3", pictureSrc = name.toLowerCase().replace(" ", "") + ".jpg") {
+        this.name = name;
+        this.audioSrc = audioSrc;
+        this.pictureSrc = pictureSrc;
+    }
 }
-var answer12 = {
-    name: "Angry Birds",
-    audioSrc: "angrybirds.mp3",
-    pictureSrc: "angrybirds.png"
-}
-
-var answer13 = {
-    name: "Assassin's Creed",
-    audioSrc: "assassinscreed.mp3",
-    pictureSrc: "assassinscreed.jpeg"
-}
-
-var answer14 = {
-    name: "Call Of Duty",
-    audioSrc: "callofduty.mp3",
-    pictureSrc: "callofduty.jpeg"
-}
-
-var answer15 = {
-    name: "Mario Kart",
-    audioSrc: "mariokart.mp3",
-    pictureSrc: "mariokart.jpg"
-}
-var answer16 = {
-    name: "Mass Effect",
-    audioSrc: "masseffect.mp3",
-    pictureSrc: "masseffect.jpg"
-}
-var answer17 = {
-    name: "Legend of Zelda",
-    audioSrc: "zelda.mp3",
-    pictureSrc: "zelda.jpg"
-}
-var answer18 = {
-    name: "World of Warcraft",
-    audioSrc: "worldofwarcraft.mp3",
-    pictureSrc: "worldofwarcraft.jpg"
-}
-var answer19 = {
-    name: "League of Legends",
-    audioSrc: "lol.mp3",
-    pictureSrc: "lol.jpg"
-}
-var answer20 = {
-    name: "Pokemon",
-    audioSrc: "pokemon.mp3",
-    pictureSrc: "pokemon.jpg"
-}
-var answer21 = {
-    name: "Burnout Paradise",
-    audioSrc: "burnoutparadise.mp3",
-    pictureSrc: "burnoutparadise.png"
-}
-var answer22 = {
-    name: "Mega Man",
-    audioSrc: "megaman.mp3",
-    pictureSrc: "megaman.png"
-}
-var answer23 = {
-    name: "Cut The Rope",
-    audioSrc: "cuttherope.mp3",
-    pictureSrc: "cuttherope.png"
-}
-var answer24 = {
-    name: "Need For Speed",
-    audioSrc: "needforspeed.mp3",
-    pictureSrc: "needforspeed.jpg"
-}
-var answer25 = {
-    name: "Sims",
-    audioSrc: "sims.mp3",
-    pictureSrc: "sims.png"
-}
-var answer26 = {
-    name: "Dragon Age Origin",
-    audioSrc: "dragonageorigin.mp3",
-    pictureSrc: "dragonageorigin.jpg"
-}
-var answer27 = {
-    name: "Crysis",
-    audioSrc: "crysis.mp3",
-    pictureSrc: "crysis.jpg"
-}
-var answer28 = {
-    name: "Dark Soul",
-    audioSrc: "darksoul.mp3",
-    pictureSrc: "darksoul.jpeg"
-}
-var answer29 = {
-    name: "Minecraft",
-    audioSrc: "minecraft.mp3",
-    pictureSrc: "minecraft.jpg"
-}
-var answer30 = {
-    name: "Faster Than Light",
-    audioSrc: "ftl.mp3",
-    pictureSrc: "ftl.jpg"
-}
-var answer31 = {
-    name: "Spelunky",
-    audioSrc: "spelunky.mp3",
-    pictureSrc: "spelunky.jpeg"
-}
-var answer32 = {
-    name: "Pac Man",
-    audioSrc: "pacman.mp3",
-    pictureSrc: "pacman.png"
-}
-
-
 var answerList = [
-    answer1,
-    answer2,
-    answer3,
-    answer4,
-    answer5,
-    answer6,
-    answer7,
-    answer8,
-    answer9,
-    answer10,
-    answer11,
-    answer12,
-    answer13,
-    answer14,
-    answer15,
-    answer16,
-    answer17,
-    answer18,
-    answer19,
-    answer20,
-    answer21,
-    answer22,
-    answer23,
-    answer24,
-    answer25,
-    answer26,
-    answer27,
-    answer28,
-    answer29,
-    answer30,
-    answer31,
-    answer32,
-]
+    new Answer("Stardew Valley", "stardewvalley.mp3", "stardew_valley.png"),
+    new Answer("Witcher", "witcher.mp3", "witcher.jpg"),
+    new Answer("Super Mario", "01 - Super Mario Bros.mp3", "supermario.png"),
+    new Answer("Cities Skylines", "citesskylines.mp3", "citiesskylines.jpeg"),
+    new Answer("Darkest Dungeon", "darkestdungeon.mp3", "darkestdungeon.jpg"),
+    new Answer("Dirt", "dirt.mp3", "dirt.jpeg"),
+    new Answer("Don't Starve", "dontstarve.mp3", "dontstarve.jpeg"),
+    new Answer("Civilization", "civilization.mp3", "civilization.jpg"),
+    new Answer("Counter Strike", "counterstrike.mp3", "counterstrike.jpg"),
+    new Answer("Portal", "portal.mp3", "portal.jpg"),
+    new Answer("Plants vs zombies", "plantsvszombies2.mp3", "plantsvszombies.jpg"),
+    new Answer("Angry Birds", "angrybirds.mp3", "angrybirds.png"),
+    new Answer("Assassin's Creed", "assassinscreed.mp3", "assassinscreed.jpeg"),
+    new Answer("Call Of Duty", "callofduty.mp3", "callofduty.jpeg"),
+    new Answer("Mario Kart", "mariokart.mp3", "mariokart.jpg"),
+    new Answer("Mass Effect", "masseffect.mp3", "masseffect.jpg"),
+    new Answer("Legend of Zelda", "zelda.mp3", "zelda.jpg"),
+    new Answer("World of Warcraft", "worldofwarcraft.mp3", "worldofwarcraft.jpg"),
+    new Answer("League of Legends", "lol.mp3", "lol.jpg"),
+    new Answer("Pokemon", "pokemon.mp3", "pokemon.jpg"),
+    new Answer("Burnout Paradise", "burnoutparadise.mp3", "burnoutparadise.png"),
+    new Answer("Mega Man", "megaman.mp3", "megaman.png"),
+    new Answer("Cut The Rope", "cuttherope.mp3", "cuttherope.png"),
+    new Answer("Need For Speed", "needforspeed.mp3", "needforspeed.jpg"),
+    new Answer("Sims", "sims.mp3", "sims.png"),
+    new Answer("Dragon Age Origins", "dragonageorigin.mp3", "dragonageorigin.jpg"),
+    new Answer("Crysis", "crysis.mp3", "crysis.jpg"),
+    new Answer("Dark Souls", "darksoul.mp3", "darksoul.jpeg"),
+    new Answer("Minecraft", "minecraft.mp3", "minecraft.jpg"),
+    new Answer("Faster Than Light", "ftl.mp3", "ftl.jpg"),
+    new Answer("Spelunky", "spelunky.mp3", "spelunky.jpeg"),
+    new Answer("Pac Man", "pacman.mp3", "pacman.png"),
+    new Answer("Overwatch", "overwatch.mp3", "overwatch.jpg"),
+    new Answer("Diablo", "diablo.mp3", "diablo.png"),
+    new Answer("Hearthstone", "hearthstone.mp3", "hearthstone.jpg"),
+    new Answer("Gwent"),
+    new Answer("Fortnite", "fortnite.mp3", "fortnite.jpeg"),
+    new Answer("Skyrim"),
+    new Answer("SimCity"),
+    new Answer("Rocket League"),
+    new Answer("Team Fortress"),
+    new Answer("Dishonored"),
+    new Answer("Battlefield", "battlefield.mp3", "battlefield.jpeg"),
+    new Answer("Luigi's Mansion", "luigismansion.mp3", "luigismansion.jpeg"),
+    new Answer("Far Cry", "farcry.mp3", "farcry.jpeg"),
+    new Answer("Uncharted"),
+    new Answer("Donkey Kong", "donkeykong.mp3", "donkeykong.png")
+];
